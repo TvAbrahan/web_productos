@@ -2,7 +2,7 @@
 import HeaderNav from './components/HeaderNav.vue'
 import { ref, onMounted } from 'vue'
 import { useCartStore } from './stores/cartStore'
-import  Footer from './components/Footer.vue'
+import  FooterComponent from './components/Footer.vue'
 
 const cartStore = useCartStore()
 
@@ -27,19 +27,22 @@ onMounted(async () => {
 
 
 <template>
-  <HeaderNav />
+  <div class="flex flex-col min-h-screen">  <HeaderNav />
 
-  <div class="container max-w-screen-2xl mx-auto p-4">
-    <router-view
-      :productos="productos"
-    />
-  </div>
+    <main class="flex-grow">  <div class="container max-w-screen-2xl mx-auto p-4">
+        <router-view
+          :productos="productos"
+        />
+      </div>
+    </main>
 
-  <router-link
-    to="/carrito"
-    class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-full shadow-lg"
-  >
-    🛒 Ver Carrito ({{ cartStore.totalItems }})
+    <FooterComponent />
+
+    <router-link
+      to="/carrito"
+      class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-full shadow-lg"
+    >
+      🛒 Ver Carrito ({{ cartStore.totalItems }})
     </router-link>
-    <Footer />
+  </div>
 </template>
