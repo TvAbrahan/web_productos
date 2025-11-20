@@ -22,7 +22,7 @@ onMounted(async () => {
 
 <template>
   <HeaderNav />
-
+  <h1>idiota</h1>
   <div class="container max-w-screen-5xl mx-auto p-4">
     <ProductList :productos="productos" />
   </div>
