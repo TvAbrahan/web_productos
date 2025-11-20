@@ -1,13 +1,13 @@
-<script>
-export default {
-  data() {
-    return {
-      carrito: JSON.parse(localStorage.getItem("carrito")) || []
-    };
-  }
-};
-</script>
+<script setup>
+import { computed } from 'vue';
+import { useCartStore } from '../stores/cartStore';
 
+const cartStore = useCartStore();
+
+const cartCount = computed(() => {
+    return cartStore.totalItems;
+});
+</script>
 
 <template>
   <header>
@@ -22,20 +22,16 @@ export default {
         />
       </div>
       <nav class="nav-links flex gap-6 ml-6 text-amber-300">
-        <router-link to="/" exact>Home</router-link>
+        <router-link to="/" exact>Inicio</router-link>
         <router-link to="/carrito" class="relative">
           🛒
           <span
-            v-if="carrito.length > 0"
+            v-if="cartCount > 0"
             class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
-            {{ carrito.length }}
+            {{ cartCount }}
           </span>
         </router-link>
-
-
       </nav>
     </div>
   </header>
 </template>
-
-
