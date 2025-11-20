@@ -7,7 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-   base: '/web_productos/',
+   base: 'https://TvAbrahan.github.io/web_productos/',
   plugins: [vue(), vueDevTools(), tailwindcss()],
   resolve: {
     alias: {
