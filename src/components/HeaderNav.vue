@@ -1,3 +1,14 @@
+<script>
+export default {
+  data() {
+    return {
+      carrito: JSON.parse(localStorage.getItem("carrito")) || []
+    };
+  }
+};
+</script>
+
+
 <template>
   <header>
     <div
@@ -12,10 +23,19 @@
       </div>
       <nav class="nav-links flex gap-6 ml-6 text-amber-300">
         <router-link to="/" exact>Home</router-link>
-        <router-link to="/about">About</router-link>
-        <router-link to="/services">Services</router-link>
-        <router-link to="/contact">Contact</router-link>
+        <router-link to="/carrito" class="relative">
+          🛒
+          <span
+            v-if="carrito.length > 0"
+            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
+            {{ carrito.length }}
+          </span>
+        </router-link>
+
+
       </nav>
     </div>
   </header>
 </template>
+
+

@@ -1,10 +1,29 @@
 <script setup>
 import HeaderNav from './components/HeaderNav.vue'
-import ProductList from './components/ProductList.vue'
+import { ref, onMounted, watch } from 'vue'
 
-import { ref, onMounted } from 'vue'
 const productos = ref([])
+const carrito = ref(JSON.parse(localStorage.getItem("carrito")) || [])
+
 const cargando = ref(true)
+
+const agregarAlCarrito = (producto) => {
+  const item = carrito.value.find(p => p.id === producto.id)
+  if (item) {
+    item.cantidad++
+  } else {
+    carrito.value.push({ ...producto, cantidad: 1 })
+  }
+}
+
+// 🔹 IMPORTANTE: guarda cambios solo cuando el carrito cambia (no cada clic)
+watch(
+  carrito,
+  () => {
+    localStorage.setItem("carrito", JSON.stringify(carrito.value))
+  },
+  { deep: true }
+)
 
 onMounted(async () => {
   try {
@@ -20,10 +39,23 @@ onMounted(async () => {
 })
 </script>
 
+
 <template>
   <HeaderNav />
-  <h1>idiota</h1>
-  <div class="container max-w-screen-5xl mx-auto p-4">
-    <ProductList :productos="productos" />
+
+  <div class="container max-w-screen-2xl mx-auto p-4">
+    <router-view
+      :productos="productos"
+      :carrito="carrito"
+      :agregarAlCarrito="agregarAlCarrito"
+    />
   </div>
+
+  <router-link
+    to="/carrito"
+    class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-full shadow-lg"
+  >
+    🛒 Ver Carrito ({{ carrito.length }})
+  </router-link>
 </template>
+

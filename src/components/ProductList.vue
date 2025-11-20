@@ -1,25 +1,32 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 
-const { productos } = defineProps({
-  productos: {
-    type: Array,
-    required: true,
-  },
+const props = defineProps({
+  productos: Array
 })
+
+const emit = defineEmits(['agregarAlCarrito'])
 </script>
 
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
     <div
-      v-for="product in productos"
-      :key="product.id"
-      class="border border-gray-400 rounded p-3.5"
+      v-for="producto in props.productos"
+      :key="producto.id"
+      class="border p-4 rounded shadow hover:shadow-lg transition flex flex-col justify-between h-full"
     >
-      <h2 class="font-bold mb-2">{{ product.title }}</h2>
-      <img :src="product.image" :alt="product.title" class="w-full h-48 object-contain mb-2" />
-      <p class="text-gray-700 mb-2">{{ product.description }}</p>
-      <p class="font-semibold text-lg">$ {{ product.price }}</p>
+      <div>
+        <img :src="producto.image" alt="" class="w-full h-40 object-contain mb-3" />
+        <h3 class="text-sm font-bold mb-1">{{ producto.title }}</h3>
+        <p class="text-gray-600 text-sm mb-2">{{ producto.description }}</p>
+        <p class="text-gray-800 font-semibold mb-3">${{ producto.price }}</p>
+      </div>
+      <button
+        @click="emit('agregarAlCarrito', producto)"
+        class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition mt-auto"
+      >
+        Agregar al carrito
+      </button>
     </div>
   </div>
 </template>
