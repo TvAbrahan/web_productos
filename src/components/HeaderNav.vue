@@ -19,14 +19,20 @@ const menuOpen = ref(false);
           alt="Logo"
           class="w-14 h-14 rounded-full border-2 border-amber-400 object-cover"
         />
-        <span class="text-white text-xl font-semibold tracking-wide">
-          MiTienda
-        </span>
+        <span class="text-white text-xl font-semibold tracking-wide">MiTienda</span>
       </router-link>
 
+      <!-- NAV CENTRADO (solo desktop) -->
+      <nav class="hidden md:flex gap-8 text-gray-300 font-medium absolute left-1/2 transform -translate-x-1/2">
+        <router-link to="/" exact class="hover:text-amber-400">Inicio</router-link>
+        <router-link to="/productos" class="hover:text-amber-400">Productos</router-link>
+        <router-link to="/contacto" class="hover:text-amber-400">Contacto</router-link>
+      </nav>
+
+      <!-- CARRITO + MENÚ MOBILE A LA DERECHA -->
       <div class="flex items-center gap-6">
 
-        <!-- CARRITO (PC y móvil) -->
+        <!-- CARRITO (siempre visible) -->
         <router-link to="/carrito" class="relative text-white text-2xl hover:text-amber-400 transition">
           🛒
           <span
@@ -36,25 +42,18 @@ const menuOpen = ref(false);
           </span>
         </router-link>
 
-        <!-- BOTÓN MENÚ SOLO EN MÓVIL -->
+        <!-- MENÚ HAMBURGUESA (solo móvil, NO mueve el carrito) -->
         <button
           @click="menuOpen = !menuOpen"
           class="md:hidden text-white text-3xl focus:outline-none"
         >
           ☰
         </button>
+
       </div>
-
-      <!-- NAV PARA PC -->
-      <nav class="hidden md:flex gap-8 text-gray-300 font-medium">
-        <router-link to="/" exact class="hover:text-amber-400">Inicio</router-link>
-        <router-link to="/productos" class="hover:text-amber-400">Productos</router-link>
-        <router-link to="/contacto" class="hover:text-amber-400">Contacto</router-link>
-      </nav>
-
     </div>
 
-    <!-- MENÚ MÓVIL DESPLEGABLE -->
+    <!-- MENU MOBILE -->
     <transition name="slide-fade">
       <div
         v-if="menuOpen"
