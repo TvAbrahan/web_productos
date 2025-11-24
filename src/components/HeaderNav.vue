@@ -3,35 +3,42 @@ import { computed } from 'vue';
 import { useCartStore } from '../stores/cartStore';
 
 const cartStore = useCartStore();
-
-const cartCount = computed(() => {
-    return cartStore.totalItems;
-});
+const cartCount = computed(() => cartStore.totalItems);
 </script>
 
 <template>
-  <header>
-    <div
-      class="header-nav flex items-center justify-between bg-gray-800 px-6 py-3 border-b-4 border-amber-400"
-    >
-      <div class="py-2">
+  <header class="bg-gray-900 shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- LOGO IZQUIERDA -->
+      <router-link to="/" class="flex items-center gap-3">
         <img
           src="../img/832_435.jpg"
           alt="Logo"
-          class="size-20 rounded-full hover:border-amber-400 border-4 transition-all duration-300"
+          class="w-14 h-14 rounded-full border-2 border-amber-400 object-cover"
         />
-      </div>
-      <nav class="nav-links flex gap-6 ml-6 text-amber-300">
-        <router-link to="/" exact>Inicio</router-link>
-        <router-link to="/carrito" class="relative">
-          🛒
-          <span
-            v-if="cartCount > 0"
-            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2">
-            {{ cartCount }}
-          </span>
-        </router-link>
+        <span class="text-white text-xl font-semibold tracking-wide">
+          MiTienda
+        </span>
+      </router-link>
+
+      <!-- NAVBAR CENTRADO -->
+      <nav class="absolute left-1/2 transform -translate-x-1/2 flex gap-8 text-gray-300 font-medium">
+        <router-link to="/" exact class="hover:text-amber-400 transition">Inicio</router-link>
+        <router-link to="/productos" class="hover:text-amber-400 transition">Productos</router-link>
+        <router-link to="/contacto" class="hover:text-amber-400 transition">Contacto</router-link>
       </nav>
+
+      <!-- CARRITO DERECHA -->
+      <router-link to="/carrito" class="relative text-white text-2xl hover:text-amber-400 transition">
+        🛒
+        <span
+          v-if="cartCount > 0"
+          class="absolute -top-2 -right-3 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow-md">
+          {{ cartCount }}
+        </span>
+      </router-link>
+
     </div>
   </header>
 </template>

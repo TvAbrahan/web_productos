@@ -27,7 +27,8 @@ onMounted(async () => {
 
 
 <template>
-  <div class="flex flex-col min-h-screen">  <HeaderNav />
+  <div class="flex flex-col min-h-screen">
+    <HeaderNav />
 
     <main class="flex-grow">  <div class="container max-w-screen-2xl mx-auto p-4">
         <router-view
@@ -46,3 +47,14 @@ onMounted(async () => {
     </router-link>
   </div>
 </template>
+
+<style>
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #f3f4f6, #ffffff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+</style>
+
